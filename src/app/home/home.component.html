@@ -1,0 +1,36 @@
+<ng-container class="container">
+  <div class="cards">
+    <div class="row">
+      <div class="col-10">
+        <img src="../../assets/imgs/hiking-1058499.jpg" width="100%" class="rounded-lg">
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-10 space">
+        <h3 class="center">Glory Lies Beyond the horizon</h3>
+        <div class="row">
+          <div class="col-10">
+            <div class="card bg-info text-white" *ngFor="let item of categories.response.categories">
+              <div class="card-body">
+                {{item.name}}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-10">
+        <div id="map" class="rounded-lg" style="width:100%;height:400px; margin:0 auto;"></div>
+        <div class="col-md-3 space">
+          <button (click)="moveMap()" [disabled]="loader" class="btn btn-primary">
+            <span class="spinner-border spinner-border-sm" *ngIf="loader"></span>
+            MoveMap
+          </button>
+          <!-- <button (click)="setMapType('satellite')" class="btn btn-danger">Satellite</button>
+          <button (click)="setMapType('roadmap')" class="btn btn-warning">Road Map</button> -->
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-container>
