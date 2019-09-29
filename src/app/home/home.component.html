@@ -7,13 +7,18 @@
     </div>
     <div class="row">
       <div class="col-10 space">
-        <h3 class="center">Glory Lies Beyond the horizon</h3>
-        <div class="row">
-          <div class="col-10">
-            <div class="card bg-info text-white" *ngFor="let item of categories.response.categories">
-              <div class="card-body">
-                {{item.name}}
-              </div>
+        <h3 class="center space">Glory Lies Beyond the horizon</h3>
+        <div class="row space">
+          <p class="center">Faça o teste agora mesmo escolha uma categoria</p>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-10 space">
+        <div class="col-10 d-flex flex-wrap align-content-center">
+          <div class="card bg-info text-white cat" *ngFor="let item of categories.response.categories">
+            <div class="card-body">
+              {{item.name}}
             </div>
           </div>
         </div>
@@ -29,6 +34,25 @@
           </button>
           <!-- <button (click)="setMapType('satellite')" class="btn btn-danger">Satellite</button>
           <button (click)="setMapType('roadmap')" class="btn btn-warning">Road Map</button> -->
+        </div>
+      </div>
+    </div>
+    <div class="row" *ngIf="results.length">
+      <div class="col-10">
+        <div class="row">
+          <div class="col-10 space" style="height: 200px; overflow-y: auto; padding: 10px">
+            <div class="card detail" *ngFor="let result of results">
+              <div class="card-header bg-success text-white">{{result.name}}</div>
+              <div class="card-body">
+                  <p class="card-text" *ngIf="result.description">{{result.description}}.</p>
+                  <p class="card-text" *ngIf="result.location.address">{{result.location.address}}.</p>
+                  <p class="card-text" *ngIf="result.popular.isOpen">Está aberto.</p>
+                  
+                <!-- <p class="card-text">Distância de {{result.location.distance}} metros</p> -->
+                <a href="#" class="card-link">Contato {{result.contact.formattedPhone}}</a>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>

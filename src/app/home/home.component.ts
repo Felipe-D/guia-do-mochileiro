@@ -14,6 +14,7 @@ export class HomeComponent implements OnInit {
   map;
   loader: boolean = false;
   categories: any = require('../services/categories.json');
+  results:any[] = [];
 
   constructor(private api:ApiService) { }
 
@@ -46,18 +47,27 @@ export class HomeComponent implements OnInit {
     // this.longitude = -46.6588142;
     this.latitude = -23.555131129904332
     this.longitude = -46.65814161300659
-    this.map.setView([this.latitude,this.longitude], 100);
     this.api.getVenues(this.latitude,this.longitude)
       .subscribe(venues => {
+        // this.results = venues.response.venues;
         venues.response.venues.map(venue => {
-          console.log(venue)
+          // console.log(venue)
           this.createVenuesMarker(venue.location.lat,venue.location.lng,venue.name);
+          this.api.getVenueDetails(venue.id)
+            .subscribe(detail => {
+              this.results.push(detail.response.venue);
+              console.log(this.results);
+            })
         })
       })
+      this.map.setView([this.latitude,this.longitude], 100);
       this.loader= false;
     // this.createMarker();
   }
 
+  getId(id:number){
+    return "demo"+id;
+  }
   setPosition(pinpoint) {
     this.latitude = pinpoint.coords.latitude;
     this.longitude = pinpoint.coords.longitude;

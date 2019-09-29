@@ -6,9 +6,16 @@
 .row{
     border: 1px solid #dddddd;
 }
-.card {
+.cat {
     width: 150px;
-    height: 120px;
+    height: 100px;
+    display: inline-flex;
+    margin:2px;
+}
+
+.detail {
+    width: 250px;
+    height: auto;
     display: inline-flex;
     margin:2px;
 }
