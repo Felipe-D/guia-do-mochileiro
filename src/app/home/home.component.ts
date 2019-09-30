@@ -14,9 +14,9 @@ export class HomeComponent implements OnInit {
   map;
   loader: boolean = false;
   categories: any = require('../services/categories.json');
-  results:any[] = [];
+  results: any[] = [];
 
-  constructor(private api:ApiService) { }
+  constructor(private api: ApiService) { }
 
   ngOnInit() {
     console.log(this.categories)
@@ -27,47 +27,44 @@ export class HomeComponent implements OnInit {
 
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
-      // navigator.geolocation.watchPosition(
-      // this.map = L.map('map').locate();
+        // navigator.geolocation.watchPosition(
+        // this.map = L.map('map').locate();
         (position: Position) => {
           this.setPosition(position);
           this.drawMap();
         },
         (error: PositionError) => console.log(error));
-      
+
     } else {
       console.log('Cant open geolocation');
     }
 
   }
-  moveMap(){
+  moveMap() {
     this.loader = true;
 
     // this.latitude = -23.5566262;
     // this.longitude = -46.6588142;
     this.latitude = -23.555131129904332
     this.longitude = -46.65814161300659
-    this.api.getVenues(this.latitude,this.longitude)
+    this.api.getVenues(this.latitude, this.longitude)
       .subscribe(venues => {
         // this.results = venues.response.venues;
         venues.response.venues.map(venue => {
           // console.log(venue)
-          this.createVenuesMarker(venue.location.lat,venue.location.lng,venue.name);
+          this.createVenuesMarker(venue.location.lat, venue.location.lng, venue.name);
           this.api.getVenueDetails(venue.id)
             .subscribe(detail => {
               this.results.push(detail.response.venue);
               console.log(this.results);
             })
         })
+        this.loader = false;
       })
-      this.map.setView([this.latitude,this.longitude], 100);
-      this.loader= false;
+    this.map.setView([this.latitude, this.longitude], 100);
     // this.createMarker();
   }
 
-  getId(id:number){
-    return "demo"+id;
-  }
   setPosition(pinpoint) {
     this.latitude = pinpoint.coords.latitude;
     this.longitude = pinpoint.coords.longitude;
@@ -75,20 +72,20 @@ export class HomeComponent implements OnInit {
   // -23.6936355,-46.641580999999995
 
   drawMap() {
-    console.log(this.latitude,this.longitude)
-    this.map.setView([this.latitude,this.longitude], 13);
+    console.log(this.latitude, this.longitude)
+    this.map.setView([this.latitude, this.longitude], 13);
     this.createMarker()
   }
 
   createMarker() {
     L.marker([this.latitude, this.longitude]).addTo(this.map)
-      .bindPopup('A pretty CSS3 popup.<br> Easily customizable.')
+      .bindPopup('Você está aqui.')
       .openPopup();
   }
-  
-  createVenuesMarker(lat,long, name) {
-    L.marker([lat,long]).addTo(this.map)
-      .bindPopup('<span>'+name+'.</span><br> Easily customizable.')
+
+  createVenuesMarker(lat, long, name) {
+    L.marker([lat, long]).addTo(this.map)
+      .bindPopup('<span>' + name + '.</span>')
       .openPopup();
   }
 

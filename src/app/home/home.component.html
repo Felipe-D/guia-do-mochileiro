@@ -1,9 +1,10 @@
 <ng-container class="container">
   <div class="cards">
-    <div class="row">
-      <div class="col-10">
-        <img src="../../assets/imgs/hiking-1058499.jpg" width="100%" class="rounded-lg">
-      </div>
+    <div class="row panel">
+      <!-- <div class="col-10"> -->
+      <img src="../../assets/imgs/sunrise-in-the-mountains-2-1309401.jpg" width="100%" class="rounded-lg">
+      <button type="button" class="btn btn-outline-info greet">Prepare-se para descobrir um novo mundo</button>
+      <!-- </div> -->
     </div>
     <div class="row">
       <div class="col-10 space">
@@ -13,41 +14,56 @@
         </div>
       </div>
     </div>
-    <div class="row">
-      <div class="col-10 space">
-        <div class="col-10 d-flex flex-wrap align-content-center">
-          <div class="card bg-info text-white cat" *ngFor="let item of categories.response.categories">
-            <div class="card-body">
-              {{item.name}}
+    <div class="section section-2">
+      <div class="row">
+        <div class="col-4"></div>
+        <div class="col-5">
+          <button type="button" class="btn btn-outline-info greet-off" style="margin: 0 60px;">Conheça nossas
+            categorias</button>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-10 space">
+          <div class="col-10 d-flex flex-wrap align-content-center">
+            <div class="card bg-info text-white cat" *ngFor="let item of categories.response.categories">
+              <div class="card-body">
+                {{item.name}}
+              </div>
             </div>
           </div>
+        </div>
+      </div>
+    </div>
+    <div class="section">
+      <div class="row space">
+        <p class="center">Faça o teste agora mesmo</p>
+      </div>
+      <div class="row">
+        <div class="col-5"></div>
+        <div class="col-md-3 space" style="padding: 0 35px">
+          <button (click)="moveMap()" [disabled]="loader" class="btn btn-primary">
+            <span class="spinner-border spinner-border-sm" *ngIf="loader"></span>
+            Surpreenda-se
+          </button>
         </div>
       </div>
     </div>
     <div class="row">
       <div class="col-10">
         <div id="map" class="rounded-lg" style="width:100%;height:400px; margin:0 auto;"></div>
-        <div class="col-md-3 space">
-          <button (click)="moveMap()" [disabled]="loader" class="btn btn-primary">
-            <span class="spinner-border spinner-border-sm" *ngIf="loader"></span>
-            MoveMap
-          </button>
-          <!-- <button (click)="setMapType('satellite')" class="btn btn-danger">Satellite</button>
-          <button (click)="setMapType('roadmap')" class="btn btn-warning">Road Map</button> -->
-        </div>
       </div>
     </div>
-    <div class="row" *ngIf="results.length">
+    <div class="row" *ngIf="results.length && !loader">
       <div class="col-10">
         <div class="row">
           <div class="col-10 space" style="height: 200px; overflow-y: auto; padding: 10px">
             <div class="card detail" *ngFor="let result of results">
               <div class="card-header bg-success text-white">{{result.name}}</div>
               <div class="card-body">
-                  <p class="card-text" *ngIf="result.description">{{result.description}}.</p>
-                  <p class="card-text" *ngIf="result.location.address">{{result.location.address}}.</p>
-                  <p class="card-text" *ngIf="result.popular.isOpen">Está aberto.</p>
-                  
+                <p class="card-text" *ngIf="result.description">{{result.description}}.</p>
+                <p class="card-text" *ngIf="result.location.address">{{result.location.address}}.</p>
+                <p class="card-text" *ngIf="result.popular">Está aberto.</p>
+
                 <!-- <p class="card-text">Distância de {{result.location.distance}} metros</p> -->
                 <a href="#" class="card-link">Contato {{result.contact.formattedPhone}}</a>
               </div>

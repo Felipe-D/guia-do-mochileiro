@@ -1,16 +1,20 @@
 .col-10{
     margin:0 auto;
-    border-left: 0.5px solid #dddddd;
-    border-right: 0.5px solid #dddddd;
+    // border-left: 0.5px solid #dddddd;
+    // border-right: 0.5px solid #dddddd;
 }
-.row{
-    border: 1px solid #dddddd;
-}
+// .row{
+//     border: 1px solid #dddddd;
+// }
 .cat {
     width: 150px;
     height: 100px;
     display: inline-flex;
     margin:2px;
+}
+.panel {
+    height: 550px;
+    overflow-y: hidden;
 }
 
 .detail {
@@ -21,4 +25,30 @@
 }
 .space {
     padding: 10px 0;
+}
+
+.greet {
+    position: absolute;
+    justify-content: center;
+    align-self: center;
+    left: 36%;
+    color: white;
+    font-weight: 600;
+    background-color: rgb(23, 162, 184);
+}
+
+.greet-off {
+    justify-content: center;
+    align-self: center;
+    color: white;
+    font-weight: 600;
+    background-color: rgb(23, 162, 184);
+}
+
+.section{
+    padding: 40px 0;
+}
+
+.section-2{
+    background-image:  url("../../assets/imgs/queenstown-moonlight-1393332-1598x1062.jpg");
 }
