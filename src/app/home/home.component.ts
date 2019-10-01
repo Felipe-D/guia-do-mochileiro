@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../services/api.service';
-declare let L;
+import { icon, latLng, marker, polyline, tileLayer } from 'leaflet';
+import * as L from 'leaflet';
 
 @Component({
   selector: 'app-home',
@@ -12,6 +13,7 @@ export class HomeComponent implements OnInit {
   latitude = 0;
   public longitude: number = 0;
   map;
+  markersLayer: any;
   loader: boolean = false;
   categories: any = require('../services/categories.json');
   results: any[] = [];
@@ -49,15 +51,15 @@ export class HomeComponent implements OnInit {
     this.longitude = -46.65814161300659
     this.api.getVenues(this.latitude, this.longitude)
       .subscribe(venues => {
-        // this.results = venues.response.venues;
+        this.results = venues.response.venues;
         venues.response.venues.map(venue => {
           // console.log(venue)
           this.createVenuesMarker(venue.location.lat, venue.location.lng, venue.name);
-          this.api.getVenueDetails(venue.id)
-            .subscribe(detail => {
-              this.results.push(detail.response.venue);
-              console.log(this.results);
-            })
+          // this.api.getVenueDetails(venue.id)
+          //   .subscribe(detail => {
+          //     this.results.push(detail.response.venue);
+          //     console.log(this.results);
+          //   })
         })
         this.loader = false;
       })
@@ -78,9 +80,13 @@ export class HomeComponent implements OnInit {
   }
 
   createMarker() {
-    L.marker([this.latitude, this.longitude]).addTo(this.map)
+   let now = L.marker([this.latitude, this.longitude]).addTo(this.map)
       .bindPopup('Você está aqui.')
       .openPopup();
+  // this.markersLayer = new L.FeatureGroup(null);
+  //       this.markersLayer.clearLayers();
+  //       this.markersLayer.addLayer(now);
+  //       this.markersLayer.addTo(this.map);
   }
 
   createVenuesMarker(lat, long, name) {
