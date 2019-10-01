@@ -1,25 +1,40 @@
 <ng-container class="container">
-  <div class="cards">
-    <div class="row panel">
-      <!-- <div class="col-10"> -->
-      <img src="../../assets/imgs/sunrise-in-the-mountains-2-1309401.jpg" width="100%" class="rounded-lg">
+	<div class="cards">
+		<div class="row panel section-1 rounded-lg">
+			<!-- <div class="col-10"> -->
+			<!-- <img src="https://images.freeimages.com/images/large-previews/ade/sunrise-in-the-mountains-2-1309401.jpg" width="100%" class="rounded-lg"> -->
+      <!-- <div class="section-1 rounded-lg" width="100%"></div> -->
       <button type="button" class="btn btn-outline-info greet">Prepare-se para descobrir um novo mundo</button>
       <!-- </div> -->
     </div>
     <div class="row">
       <div class="col-10 space">
-        <h3 class="center space">Glory Lies Beyond the horizon</h3>
+        <h3 class="center space">O mundo em suas mÃ£os</h3>
+        <div class="center space">
+        <p>Guia do MochileiroÂ Ã© o site que ajuda aos viajantes a se planejarem com base nas dicas, fotos, avaliaÃ§Ãµes e comentÃ¡rios feitos por usuÃ¡rios que jÃ¡ curtiram diversas atraÃ§Ãµes em um determinado destino. AlÃ©m disso, o serviÃ§o tambÃ©m Ã© disponÃ­vel
+para a plataforma mÃ³velÂ Android. Sendo assim, vocÃª pode personalizar sua viagem de onde estiver.</p>  
+        <p>Tanto o site quanto o aplicativo do Guia do Mochileiro sÃ£o totalmente em portuguÃªs
+e ambos possuem uma interface bonita e fÃ¡cil de ser utilizada. Basta se conectar
+com uma contaÂ para efetuar buscas de pontos turÃ­sticos, restaurantes e dicas de
+destinos pelo mundo inteiro. No serviÃ§o web, vocÃª pode ainda montar um mapa de
+lugares que jÃ¡ visitou e ver as dicas deixadas por outros usuÃ¡rios.</p>
+        <p>AlÃ©m disso, hÃ¡ fotos e comentÃ¡rios organizados por data de pessoas que jÃ¡
+visitaram o local. Assim como vocÃª pode conferir as dicas deixadas, Ã© permitido
+tambÃ©m que vocÃª qualifique e insira suas avaliaÃ§Ãµes de um ponto turÃ­stico, destino,
+restaurante, hotel entre outros.Â E para quem gosta de fÃ³runs, o Guia do Mochileiro
+oferece esta opÃ§Ã£o para trocar ideias sobre opiniÃµes de uma determinada atraÃ§Ã£o
+ou local.</p>
+        </div>
         <div class="row space">
-          <p class="center">Faça o teste agora mesmo escolha uma categoria</p>
+          <!-- <p class="center">FaÃ§a o teste agora mesmo escolha uma categoria</p> -->
         </div>
       </div>
     </div>
     <div class="section section-2">
       <div class="row">
-        <div class="col-4"></div>
-        <div class="col-5">
-          <button type="button" class="btn btn-outline-info greet-off" style="margin: 0 60px;">Conheça nossas
-            categorias</button>
+        <div class="col-10">
+          <h3 class="center space greet-off" >ConheÃ§a nossas
+            categorias</h3>
         </div>
       </div>
       <div class="row">
@@ -36,7 +51,7 @@
     </div>
     <div class="section">
       <div class="row space">
-        <p class="center">Faça o teste agora mesmo</p>
+        <p class="center">FaÃ§a o teste agora mesmo</p>
       </div>
       <div class="row">
         <div class="col-5"></div>
@@ -62,10 +77,10 @@
               <div class="card-body">
                 <p class="card-text" *ngIf="result.description">{{result.description}}.</p>
                 <p class="card-text" *ngIf="result.location.address">{{result.location.address}}.</p>
-                <p class="card-text" *ngIf="result.popular">Está aberto.</p>
+                <!-- <p class="card-text" *ngIf="result.popular">EstÃ¡ aberto.</p> -->
 
-                <!-- <p class="card-text">Distância de {{result.location.distance}} metros</p> -->
-                <a href="#" class="card-link">Contato {{result.contact.formattedPhone}}</a>
+                <p class="card-text">DistÃ¢ncia de {{result.location.distance}} metros</p>
+                <!-- <a href="#" class="card-link">Contato {{result.contact.formattedPhone}}</a> -->
               </div>
             </div>
           </div>
