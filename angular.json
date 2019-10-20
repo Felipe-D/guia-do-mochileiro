@@ -28,15 +28,13 @@
               {
                 "glob": "**/*",
                 "input": "./node_modules/leaflet/dist/images",
-                "output": "assets/"
-              }
+                "output": "./assets/"
+              },
+              "src/manifest.webmanifest"
             ],
             "styles": [
               "src/styles.scss",
-              "src/assets/leaflet/leaflet.css"
-            ],
-            "scripts": [
-              "src/assets/leaflet/leaflet.js"
+              "./node_modules/leaflet/dist/leaflet.css"
             ]
           },
           "configurations": {
@@ -62,7 +60,9 @@
                   "maximumWarning": "2mb",
                   "maximumError": "5mb"
                 }
-              ]
+              ],
+              "serviceWorker": true,
+              "ngswConfigPath": "ngsw-config.json"
             }
           }
         },
@@ -96,7 +96,8 @@
             "scripts": [],
             "assets": [
               "src/favicon.ico",
-              "src/assets"
+              "src/assets",
+              "src/manifest.webmanifest"
             ]
           }
         },

@@ -1,6 +1,21 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../services/api.service';
-declare let L;
+import * as L from "leaflet";
+// declare let L;
+const iconRetinaUrl = 'assets/marker-icon-2x.png';
+const iconUrl = 'assets/marker-icon.png';
+const shadowUrl = 'assets/marker-shadow.png';
+const iconDefault = L.icon({
+  iconRetinaUrl,
+  iconUrl,
+  shadowUrl,
+  iconSize: [25, 41],
+  iconAnchor: [12, 41],
+  popupAnchor: [1, -34],
+  tooltipAnchor: [16, -28],
+  shadowSize: [41, 41]
+});
+L.Marker.prototype.options.icon = iconDefault;
 
 @Component({
   selector: 'app-home',
@@ -20,6 +35,15 @@ export class HomeComponent implements OnInit {
 
   ngOnInit() {
     console.log(this.categories)
+    // this.map = {
+    //   layers: [
+    //     tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    //         attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+    //       })
+    //   ],
+    //   zoom: 13,
+    //   center: latLng([-23.555131129904332,-46.65814161300659])
+    // }
     this.map = L.map('map');
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       attribution: '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
@@ -53,11 +77,11 @@ export class HomeComponent implements OnInit {
         venues.response.venues.map(venue => {
           // console.log(venue)
           this.createVenuesMarker(venue.location.lat, venue.location.lng, venue.name);
-          this.api.getVenueDetails(venue.id)
-            .subscribe(detail => {
-              this.results.push(detail.response.venue);
-              console.log(this.results);
-            })
+          // this.api.getVenueDetails(venue.id)
+          //   .subscribe(detail => {
+          //     this.results.push(detail.response.venue);
+          //     console.log(this.results);
+          //   })
         })
         this.loader = false;
       })
@@ -74,13 +98,23 @@ export class HomeComponent implements OnInit {
   drawMap() {
     console.log(this.latitude, this.longitude)
     this.map.setView([this.latitude, this.longitude], 13);
-    this.createMarker()
+    this.createMarker();
+    // this.map.center = latLng([this.latitude, this.longitude])
+    // this.map.layers[this.map.layers.length+1] = this.createMarker();
   }
 
   createMarker() {
+    // const mark = marker(latLng([this.latitude, this.longitude]),
+    // { icon: icon({
+    //   iconSize: [ 25, 41 ],
+    //   iconAnchor: [ 13, 41 ],
+    //   iconUrl: 'leaflet/marker-icon.png',
+    //   shadowUrl: 'leaflet/marker-shadow.png'
+    // })})
     L.marker([this.latitude, this.longitude]).addTo(this.map)
       .bindPopup('Você está aqui.')
       .openPopup();
+    // return mark;
   }
 
   createVenuesMarker(lat, long, name) {
