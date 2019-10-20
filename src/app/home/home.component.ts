@@ -35,15 +35,6 @@ export class HomeComponent implements OnInit {
 
   ngOnInit() {
     console.log(this.categories)
-    // this.map = {
-    //   layers: [
-    //     tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    //         attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-    //       })
-    //   ],
-    //   zoom: 13,
-    //   center: latLng([-23.555131129904332,-46.65814161300659])
-    // }
     this.map = L.map('map');
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       attribution: '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
@@ -73,9 +64,8 @@ export class HomeComponent implements OnInit {
     this.longitude = -46.65814161300659
     this.api.getVenues(this.latitude, this.longitude)
       .subscribe(venues => {
-        // this.results = venues.response.venues;
+        this.results = venues.response.venues;
         venues.response.venues.map(venue => {
-          // console.log(venue)
           this.createVenuesMarker(venue.location.lat, venue.location.lng, venue.name);
           // this.api.getVenueDetails(venue.id)
           //   .subscribe(detail => {
@@ -99,22 +89,12 @@ export class HomeComponent implements OnInit {
     console.log(this.latitude, this.longitude)
     this.map.setView([this.latitude, this.longitude], 13);
     this.createMarker();
-    // this.map.center = latLng([this.latitude, this.longitude])
-    // this.map.layers[this.map.layers.length+1] = this.createMarker();
   }
 
   createMarker() {
-    // const mark = marker(latLng([this.latitude, this.longitude]),
-    // { icon: icon({
-    //   iconSize: [ 25, 41 ],
-    //   iconAnchor: [ 13, 41 ],
-    //   iconUrl: 'leaflet/marker-icon.png',
-    //   shadowUrl: 'leaflet/marker-shadow.png'
-    // })})
     L.marker([this.latitude, this.longitude]).addTo(this.map)
       .bindPopup('Você está aqui.')
       .openPopup();
-    // return mark;
   }
 
   createVenuesMarker(lat, long, name) {
