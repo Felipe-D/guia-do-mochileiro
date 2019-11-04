@@ -21,6 +21,9 @@ export class ApiService {
     let pos = '&ll='+lat+','+long;
     return this.http.get<any>(this.apiUrl+'venues/search?'+this.id+this.secret+this.apiVs+pos+'&intent=checkin&radius=800');
   }
+  browseVenues(place:string): Observable<any>{
+    return this.http.get<any>(this.apiUrl+'venues/search?'+this.id+this.secret+this.apiVs+'&near=sao paulo&intent=browse&radius=10000&query='+place+'&limit=100');
+  }
 
   getVenueDetails(id:string): Observable<any>{
     return this.http.get<any>(this.apiUrl+'venues/'+id+'?'+this.id+this.secret+this.apiVs);

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../services/api.service';
 import * as L from "leaflet";
-// declare let L;
+
 const iconRetinaUrl = 'assets/marker-icon-2x.png';
 const iconUrl = 'assets/marker-icon.png';
 const shadowUrl = 'assets/marker-shadow.png';
@@ -18,23 +18,22 @@ const iconDefault = L.icon({
 L.Marker.prototype.options.icon = iconDefault;
 
 @Component({
-  selector: 'app-home',
-  templateUrl: './home.component.html',
-  styleUrls: ['./home.component.scss']
+  selector: 'app-search',
+  templateUrl: './search.component.html',
+  styleUrls: ['./search.component.scss']
 })
-export class HomeComponent implements OnInit {
+export class SearchComponent implements OnInit {
 
   latitude = 0;
   public longitude: number = 0;
   map;
   loader: boolean = false;
-  categories: any = require('../services/categories.json');
   results: any[] = [];
+  searchModel: string;
 
   constructor(private api: ApiService) { }
 
   ngOnInit() {
-    console.log(this.categories)
     this.map = L.map('map');
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       attribution: '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
@@ -102,10 +101,43 @@ export class HomeComponent implements OnInit {
       .bindPopup('<span>' + name + '.</span>')
       .openPopup();
   }
+  browse(){
+    console.log(this.searchModel)
+    this.api.browseVenues(this.searchModel)
+      .subscribe(venues => {
+        this.results = venues.response.venues;
+        console.log(this.results)
+        // let layers = this.map._layers
+        // this.map._layers.forEach( vetor => {
+        //   console.log(vetor)
+        // })
+        // this.markers.removeLayer();
+        this.map.eachLayer(
+          vetor => {
+            if(!vetor.options.attribution){
+              this.map.removeLayer(vetor);
+            }
+            }
+        )
+        // console.log(L.map('map').getLayers());
+          // vetor => {
+          //   console.log(vetor)
+          // }
+        console.log(L.layerGroup())
 
-  //navegar
-  // goTo(rote:string){
-  //   router.navigate('search', { skipLocationChange: true});
-  // }
+        // L.Marker.clearLayers();
+        // L.map('map').removeLayer(L.marker.length);
+
+        venues.response.venues.map(venue => {
+          this.createVenuesMarker(venue.location.lat, venue.location.lng, venue.name);
+          // this.api.getVenueDetails(venue.id)
+          //   .subscribe(detail => {
+          //     this.results.push(detail.response.venue);
+          //     console.log(this.results);
+          //   })
+        })
+        this.loader = false;
+      })
+  }
 
 }

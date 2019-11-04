@@ -1,0 +1,14 @@
+<ng-container class="container">
+  <div class="cards">
+    <div class="row">
+      <div class="col-12">
+        <input type="search" [(ngModel)]="searchModel" placeholder="Pesquisar" (keyup.enter)="browse()">
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-12">
+        <div id="map" class="rounded-lg" style="width:100%;height:400px; margin:0 auto;"></div>
+      </div>
+    </div>
+  </div>
+</ng-container>
