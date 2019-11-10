@@ -43,7 +43,7 @@
         <div class="col-10 space">
           <div class="col-10 d-flex flex-wrap align-content-center">
             <div class="card bg-info text-white cat" *ngFor="let item of categories.response.categories">
-              <a routerLink="/search/{{item.name}}" >
+              <a routerLink="/search/{{item.id}}/{{item.name}}" style="text-decoration: none; color: #ffffff;">
               <div class="card-body">
                 {{item.name}}
               </div>

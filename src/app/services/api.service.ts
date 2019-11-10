@@ -24,7 +24,9 @@ export class ApiService {
   browseVenues(place:string): Observable<any>{
     return this.http.get<any>(this.apiUrl+'venues/search?'+this.id+this.secret+this.apiVs+'&near=sao paulo&intent=browse&radius=10000&query='+place+'&limit=100');
   }
-
+  getVenuesbyCategory(place:string): Observable<any>{
+    return this.http.get<any>(this.apiUrl+'venues/search?'+this.id+this.secret+this.apiVs+'&categoryId='+place+'&near=sao paulo&intent=browse&radius=10000&limit=100');
+  }
   getVenueDetails(id:string): Observable<any>{
     return this.http.get<any>(this.apiUrl+'venues/'+id+'?'+this.id+this.secret+this.apiVs);
   }

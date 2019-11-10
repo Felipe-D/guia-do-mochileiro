@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { ApiService } from '../services/api.service';
 import * as L from "leaflet";
 
@@ -29,11 +30,15 @@ export class SearchComponent implements OnInit {
   map;
   loader: boolean = false;
   results: any[] = [];
-  searchModel: string;
+  searchModel: string = null;
 
-  constructor(private api: ApiService) { }
+  constructor(private api: ApiService, private route: ActivatedRoute) { }
 
   ngOnInit() {
+    
+    console.log(this.route.snapshot.params.item)
+
+
     this.map = L.map('map');
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       attribution: '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
@@ -49,7 +54,13 @@ export class SearchComponent implements OnInit {
         },
         (error: PositionError) => console.log(error));
 
-    } else {
+        if(this.route.snapshot.params.item){
+          this.searchModel = this.route.snapshot.params.nome;
+          this.browseByCategory();
+        }
+
+    } 
+    else {
       console.log('Cant open geolocation');
     }
 
@@ -66,11 +77,6 @@ export class SearchComponent implements OnInit {
         this.results = venues.response.venues;
         venues.response.venues.map(venue => {
           this.createVenuesMarker(venue.location.lat, venue.location.lng, venue.name);
-          // this.api.getVenueDetails(venue.id)
-          //   .subscribe(detail => {
-          //     this.results.push(detail.response.venue);
-          //     console.log(this.results);
-          //   })
         })
         this.loader = false;
       })
@@ -101,33 +107,41 @@ export class SearchComponent implements OnInit {
       .bindPopup('<span>' + name + '.</span>')
       .openPopup();
   }
+  cleanMarkers(){
+    this.map.eachLayer(
+      vetor => {
+        if(!vetor.options.attribution){
+          this.map.removeLayer(vetor);
+        }
+      }
+    );
+  }
   browse(){
     console.log(this.searchModel)
     this.api.browseVenues(this.searchModel)
       .subscribe(venues => {
         this.results = venues.response.venues;
         console.log(this.results)
-        // let layers = this.map._layers
-        // this.map._layers.forEach( vetor => {
-        //   console.log(vetor)
-        // })
-        // this.markers.removeLayer();
-        this.map.eachLayer(
-          vetor => {
-            if(!vetor.options.attribution){
-              this.map.removeLayer(vetor);
-            }
-            }
-        )
-        // console.log(L.map('map').getLayers());
-          // vetor => {
-          //   console.log(vetor)
-          // }
-        console.log(L.layerGroup())
+        this.cleanMarkers();
 
-        // L.Marker.clearLayers();
-        // L.map('map').removeLayer(L.marker.length);
-
+        venues.response.venues.map(venue => {
+          this.createVenuesMarker(venue.location.lat, venue.location.lng, venue.name);
+          // this.api.getVenueDetails(venue.id)
+          //   .subscribe(detail => {
+          //     this.results.push(detail.response.venue);
+          //     console.log(this.results);
+          //   })
+        })
+        this.loader = false;
+      })
+  }
+  browseByCategory(){
+    console.log(this.searchModel)
+    this.api.getVenuesbyCategory(this.searchModel)
+      .subscribe(venues => {
+        this.results = venues.response.venues;
+        console.log(this.results)
+        this.cleanMarkers();
         venues.response.venues.map(venue => {
           this.createVenuesMarker(venue.location.lat, venue.location.lng, venue.name);
           // this.api.getVenueDetails(venue.id)

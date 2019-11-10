@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { LeafletModule } from '@asymmetrik/ngx-leaflet';
+import { ModalModule, BsModalRef } from 'ngx-bootstrap';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -25,10 +26,11 @@ import { SearchComponent } from './search/search.component';
     FormsModule,
     AppRoutingModule,
     HttpClientModule,
+    ModalModule.forRoot(),
     LeafletModule.forRoot(),
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
   ],
-  providers: [ ApiService],
+  providers: [ ApiService, BsModalRef],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

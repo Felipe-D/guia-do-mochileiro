@@ -2,8 +2,93 @@
   <div class="row">
     <div class="col-12">
       <nav class="navbar navbar-expand-sm bg-light navbar-light fixed-top">
+        <form class="form-inline my-2 my-md-0">
+          <input class="form-control" type="text" placeholder="Search" aria-label="Search">
+        </form>
         <a class="navbar-brand center" href="#">Guia do Mochileiro</a>
+        <button class="btn btn-outline-primary col-1" type="button" data-toggle="modal"
+          data-target="#exampleModalCenter" (click)="openModal(exampleModalCenter)">Login</button>
       </nav>
     </div>
   </div>
+
+  <!-- Modal -->
+  <ng-template #exampleModalCenter>
+    <div class="modal-content ">
+      <div class="modal-header">
+        <h4 class="modal-title pull-left">Modal</h4>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body" *ngIf="!cadastro">
+        <form #login>
+        <div class="row">
+          <div class="col-10" style="margin: 0 auto">
+            <h5>Usuário</h5>
+            <input class="form-control" type="text" placeholder="Usuario" aria-label="Usuario" [(ngModel)]="user"
+            [ngModelOptions]="{standalone: true}" required>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-10" style="margin: 0 auto">
+            <h5>Senha</h5>
+            <input class="form-control" type="password" placeholder="Senha" aria-label="Senha" [(ngModel)]="pass"
+            [ngModelOptions]="{standalone: true}" required>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-10" style="margin: 0 auto">
+            <a (click)="cadastro = true" (click)="clearForms()">Não possui cadastro ?</a>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-12" style="text-align: center;">
+            <button class="btn btn-outline-primary col-4" type="submit"
+              (click)="logar()">Entrar</button>
+          </div>
+        </div>
+      </form>
+      </div>
+      <div class="modal-body" *ngIf="cadastro">
+        <form #cadst>
+        <div class="row">
+          <div class="col-10" style="margin: 0 auto">
+            <h5>Digite seu Usuário</h5>
+            <input class="form-control" type="text" placeholder="Usuario" aria-label="Usuario" [(ngModel)]="user"
+            [ngModelOptions]="{standalone: true}" required>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-10" style="margin: 0 auto">
+            <h5>Digite seu Email</h5>
+            <input class="form-control" type="text" placeholder="Email" aria-label="Email" [(ngModel)]="mail"
+            [ngModelOptions]="{standalone: true}" required>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-10" style="margin: 0 auto">
+            <h5>Digite sua Senha</h5>
+            <input class="form-control" type="password" placeholder="Senha" aria-label="Senha" [(ngModel)]="pass"
+            [ngModelOptions]="{standalone: true}" required>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-12" style="text-align: center;">
+            <button class="btn btn-outline-primary col-3 custom" type="submit"
+              (click)="addUser()">Criar</button>
+            <button class="btn btn-outline-secondary col-3 custom" type="reset"
+              (click)="cadastro = false" (click)="clearForms()">Cancelar</button>
+          </div>
+        </div>
+      </form>
+      </div>
+      <!-- <div class="modal-footer">
+        <div class="col-6">
+          <button class="btn btn-outline-secondary my-2 my-sm-0" type="button"
+            (click)="openModal(exampleModalCenter)">Cancelar</button>
+        </div>
+      </div> -->
+    </div>
+  </ng-template>
 </ng-container>
