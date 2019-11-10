@@ -31,6 +31,7 @@ export class SearchComponent implements OnInit {
   loader: boolean = false;
   results: any[] = [];
   searchModel: string = null;
+  cityModel: string = null;
 
   constructor(private api: ApiService, private route: ActivatedRoute) { }
 
@@ -118,7 +119,7 @@ export class SearchComponent implements OnInit {
   }
   browse(){
     console.log(this.searchModel)
-    this.api.browseVenues(this.searchModel)
+    this.api.browseVenues(this.cityModel,this.searchModel)
       .subscribe(venues => {
         this.results = venues.response.venues;
         console.log(this.results)

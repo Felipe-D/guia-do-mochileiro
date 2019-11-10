@@ -1,8 +1,18 @@
 <ng-container class="container">
   <div class="cards">
-    <div class="row">
+    <div class="row section">
       <div class="col-12">
-        <input type="search" [(ngModel)]="searchModel" placeholder="Pesquisar" (keyup.enter)="browse()">
+        <!-- <input type="search" [(ngModel)]="searchModel" placeholder="Pesquisar" (keyup.enter)="browse()"> -->
+        <form class="form-inline" ngNativeValidate>
+          <div class="col-4">
+            <span>Cidade: </span>
+            <input class="form-control" type="text" [(ngModel)]="cityModel" placeholder="Pesquisar" aria-label="Search" required="true" aria-required="true" [ngModelOptions]="{standalone: true}">
+          </div>
+          <div class="col-4">
+              <span>Estabelecimento: </span>
+            <input class="form-control" type="search" [(ngModel)]="searchModel" placeholder="Pesquisar" (keyup.enter)="browse()" aria-label="Search" [ngModelOptions]="{standalone: true}">
+          </div>
+        </form>
       </div>
     </div>
     <div class="row">

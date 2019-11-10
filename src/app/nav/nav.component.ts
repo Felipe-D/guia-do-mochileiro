@@ -16,7 +16,9 @@ export class NavComponent implements OnInit {
   pass:string;
   mail:string;
   cadastro: boolean = false;
-
+  isCollapsed:boolean = true;
+  pfCol:boolean = true;
+  private loader:boolean = false;
   constructor(private modalService: BsModalService, private back: BackApiService) { }
 
   ngOnInit() {
@@ -25,18 +27,30 @@ export class NavComponent implements OnInit {
     this.modalRef = this.modalService.show(template, { backdrop: true, keyboard: true });
   }
 
+  logout(){
+    this.back.logout().subscribe(result =>{
+      if(!result){
+        this.back.setId(null);
+        this.pfCol = true;
+      }
+    })
+  }
   logar() {
+    this.loader = true;
     let body:object = { "username": `${this.user}`, "password": `${this.pass}`};
     try {
       this.back.login(body)
         .subscribe(result => {
           if(result.id) {
             this.back.setId(result.id);
+            alert(this.feedback(200));
             console.log(this.back.getId())
           }else {
             alert(this.feedback(result.statusCode))
           }
           this.clearForms();
+          this.loader = false;
+          this.modalRef.hide();
         })
       
     } catch (error) {
@@ -46,14 +60,17 @@ export class NavComponent implements OnInit {
   addUser() {
     let body:object = { "username": `${this.user}`, "password": `${this.pass}`, "email": `${this.mail}`};
     try {
+      this.loader = true;
       this.back.postUser(body)
         .subscribe(result => {
           console.log(result);
           if(result.id) {
+            alert(this.feedback(200));
           }else {
             alert(this.feedback(result.statusCode))
           }
           this.clearForms();
+          this.loader = false;
         })
       
     } catch (error) {

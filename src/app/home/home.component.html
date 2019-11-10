@@ -71,22 +71,19 @@
         <div id="map" class="rounded-lg" style="width:100%;height:400px; margin:0 auto;"></div>
       </div>
     </div>
+    <div class="row space"  *ngIf="showM">
+      <div class="col-10">
+        <h5>Foram encontrados {{results.length}} resultados.</h5>
+      </div>
+    </div>
     <div class="row space" *ngIf="results.length && !loader">
       <div class="col-10">
-        <div class="row">
-          <div class="col-10 space" style="height: 200px; overflow-y: auto; padding: 10px">
-            <div class="card detail" *ngFor="let result of results">
-              <div class="card-header bg-success text-white">{{result.name}}</div>
-              <div class="card-body">
-                <p class="card-text" *ngIf="result.description">{{result.description}}.</p>
-                <p class="card-text" *ngIf="result.location.address">{{result.location.address}}.</p>
-                <p class="card-text" *ngIf="result.popular">Está aberto.</p>
-
-                <!-- <p class="card-text">Distância de {{result.location.distance}} metros</p> -->
-              </div>
-            </div>
-          </div>
-        </div>
+        <ul class="list-group" style="height: 200px; overflow-y: auto;">
+          <li class="list-group-item" *ngFor="let result of results">
+            {{result.name}}
+            <span style="float: right;">{{result.location.address}}</span>
+          </li>
+        </ul>
       </div>
     </div>
   </div>

@@ -21,8 +21,12 @@ export class ApiService {
     let pos = '&ll='+lat+','+long;
     return this.http.get<any>(this.apiUrl+'venues/search?'+this.id+this.secret+this.apiVs+pos+'&intent=checkin&radius=800');
   }
-  browseVenues(place:string): Observable<any>{
-    return this.http.get<any>(this.apiUrl+'venues/search?'+this.id+this.secret+this.apiVs+'&near=sao paulo&intent=browse&radius=10000&query='+place+'&limit=100');
+  getPopVenues(lat:number, long:number): Observable<any>{
+    let pos = '&ll='+lat+','+long;
+    return this.http.get<any>(this.apiUrl+'venues/trending?'+this.id+this.secret+this.apiVs+pos+'&limit=50&radius=1000');
+  }
+  browseVenues(city:string,place:string): Observable<any>{
+    return this.http.get<any>(this.apiUrl+'venues/search?'+this.id+this.secret+this.apiVs+'&near='+city+'&intent=browse&radius=10000&query='+place+'&limit=100');
   }
   getVenuesbyCategory(place:string): Observable<any>{
     return this.http.get<any>(this.apiUrl+'venues/search?'+this.id+this.secret+this.apiVs+'&categoryId='+place+'&near=sao paulo&intent=browse&radius=10000&limit=100');

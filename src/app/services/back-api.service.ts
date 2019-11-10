@@ -30,7 +30,7 @@ export class BackApiService {
       catchError(this.handleError<object>('login'))
     );
   }
-  logout(token: string): Observable<any>{
+  logout(): Observable<any>{
     return this.http.post<any>(this.apiUrl+'Users/logout'+this.tok+this.sessionId,'').pipe(
       catchError(this.handleError<object>('logout'))
     );

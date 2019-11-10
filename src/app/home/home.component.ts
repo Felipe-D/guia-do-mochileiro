@@ -30,6 +30,7 @@ export class HomeComponent implements OnInit {
   loader: boolean = false;
   categories: any = require('../services/categories.json');
   results: any[] = [];
+  private showM: boolean = false;
 
   constructor(private api: ApiService) { }
 
@@ -74,6 +75,7 @@ export class HomeComponent implements OnInit {
           //   })
         })
         this.loader = false;
+        this.showM = true;
       })
     this.map.setView([this.latitude, this.longitude], 100);
     // this.createMarker();
