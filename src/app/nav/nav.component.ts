@@ -20,7 +20,10 @@ export class NavComponent implements OnInit {
   isCollapsed:boolean = true;
   pfCol:boolean = true;
   private loader:boolean = false;
-  constructor(private modalService: BsModalService, private back: BackApiService, private rote: Router) { }
+  constructor(
+    private modalService: BsModalService, 
+    private back: BackApiService, 
+    private rote: Router) { }
 
   ngOnInit() {
   }
@@ -33,6 +36,7 @@ export class NavComponent implements OnInit {
       if(!result){
         this.back.setId(null);
         this.pfCol = true;
+        this.rote.navigateByUrl('');
       }
     })
   }
