@@ -1,7 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, TemplateRef } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ApiService } from '../services/api.service';
 import * as L from "leaflet";
+import { BsModalService } from 'ngx-bootstrap/modal';
+import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
+import { BackApiService } from '../services/back-api.service';
 
 const iconRetinaUrl = 'assets/marker-icon-2x.png';
 const iconUrl = 'assets/marker-icon.png';
@@ -32,8 +35,14 @@ export class SearchComponent implements OnInit {
   results: any[] = [];
   searchModel: string = null;
   cityModel: string = null;
+  details: object = null;
+  modalRef: BsModalRef;
 
-  constructor(private api: ApiService, private route: ActivatedRoute) { }
+  constructor(
+    private api: ApiService,
+    private back: BackApiService, 
+    private route: ActivatedRoute,
+    private modalService: BsModalService) { }
 
   ngOnInit() {
     
@@ -82,7 +91,6 @@ export class SearchComponent implements OnInit {
         this.loader = false;
       })
     this.map.setView([this.latitude, this.longitude], 100);
-    // this.createMarker();
   }
 
   setPosition(pinpoint) {
@@ -90,7 +98,6 @@ export class SearchComponent implements OnInit {
     this.longitude = pinpoint.coords.longitude;
   }
   // -23.6936355,-46.641580999999995
-
   drawMap() {
     console.log(this.latitude, this.longitude)
     this.map.setView([this.latitude, this.longitude], 13);
@@ -117,6 +124,25 @@ export class SearchComponent implements OnInit {
       }
     );
   }
+  getDetails(id:string, modal:TemplateRef<any>){
+    this.api.getVenueDetails(id)
+      .subscribe(detail => {
+        console.log(detail.response.venue);
+        this.details = detail.response.venue;
+        
+        this.openModal(modal);
+        let body = { "placement": detail.response.venue.name,
+        "accessDate": new Date(),
+        "placeId": detail.response.venue.id
+        }
+        console.log(body)
+        this.back.postHistories(body).subscribe(res => {
+          console.log(res);
+        });
+              // this.results.push(detail.response.venue);
+              // console.log(this.results);
+      })
+  }
   browse(){
     console.log(this.searchModel)
     this.api.browseVenues(this.cityModel,this.searchModel)
@@ -127,11 +153,6 @@ export class SearchComponent implements OnInit {
 
         venues.response.venues.map(venue => {
           this.createVenuesMarker(venue.location.lat, venue.location.lng, venue.name);
-          // this.api.getVenueDetails(venue.id)
-          //   .subscribe(detail => {
-          //     this.results.push(detail.response.venue);
-          //     console.log(this.results);
-          //   })
         })
         this.loader = false;
       })
@@ -155,4 +176,10 @@ export class SearchComponent implements OnInit {
       })
   }
 
+  openModal(template: TemplateRef<any>) {
+    this.modalRef = this.modalService.show(template, { backdrop: true, keyboard: true });
+  }
+  getPhoto(prefix,sufix){
+    return prefix+"300"+sufix;
+  }
 }

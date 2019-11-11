@@ -3,6 +3,7 @@ import { BsModalService } from 'ngx-bootstrap/modal';
 import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
 
 import { BackApiService } from '../services/back-api.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-nav',
@@ -19,7 +20,7 @@ export class NavComponent implements OnInit {
   isCollapsed:boolean = true;
   pfCol:boolean = true;
   private loader:boolean = false;
-  constructor(private modalService: BsModalService, private back: BackApiService) { }
+  constructor(private modalService: BsModalService, private back: BackApiService, private rote: Router) { }
 
   ngOnInit() {
   }
@@ -44,6 +45,7 @@ export class NavComponent implements OnInit {
           if(result.id) {
             this.back.setId(result.id);
             alert(this.feedback(200));
+            this.rote.navigateByUrl('search/');
             console.log(this.back.getId())
           }else {
             alert(this.feedback(result.statusCode))

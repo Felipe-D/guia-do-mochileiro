@@ -1,9 +1,9 @@
 <ng-container>
   <div class="row">
     <div class="col-12">
-      <nav class="navbar navbar-expand-lg bg-light navbar-light fixed-top">
-
-        <a class="navbar-brand col-10" href="#">Guia do Mochileiro</a>
+      <nav class="navbar navbar-expand-lg bg-light navbar-light fixed-top" style="display: flex;">
+        <div class="col-10" style="margin-right: 0;">
+            <a class="navbar-brand" href="#">Guia do Mochileiro</a></div>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
           aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"
           (click)="isCollapsed = !isCollapsed">
@@ -11,18 +11,18 @@
         </button>
         <div class=" collapse navbar-collapse" id="navbarSupportedContent" [collapse]="isCollapsed">
           <div class="navbar-nav col-2">
-            <button *ngIf="!back.getId()" style="float: right;" class="btn btn-outline-primary nav-item" type="button"
+            <button *ngIf="!back.getId()" style="float: right; width:87px" class="btn btn-outline-primary nav-item" type="button"
               data-toggle="modal" data-target="#exampleModalCenter"
               (click)="openModal(exampleModalCenter)">Login</button>
               <a *ngIf="back.getId()" class="btn btn-primary" data-toggle="collapse" href="#collapseExample" 
-                  role="button" aria-expanded="false" aria-controls="collapseExample" (click)="pfCol= !pfCol" style=" border-radius: 20px;">
+                  role="button" aria-expanded="false" aria-controls="collapseExample" (click)="pfCol= !pfCol" style=" width:87px;border-radius: 20px;">
                     Perfil
               </a>
               <div class="collapse" id="collapseExample" [collapse]="pfCol" 
               style="position: absolute;
               display: block;
               top: 40px;">
-                <ul class="list-group">
+                <ul class="list-group" style="width: 140px;">
                         <li class="list-group-item">Ver Histórico</li>
                         <li class="list-group-item" (click)="logout()">Sair</li>
                 </ul>
@@ -105,12 +105,6 @@
           </div>
         </form>
       </div>
-      <!-- <div class="modal-footer">
-        <div class="col-6">
-          <button class="btn btn-outline-secondary my-2 my-sm-0" type="button"
-            (click)="openModal(exampleModalCenter)">Cancelar</button>
-        </div>
-      </div> -->
     </div>
   </ng-template>
 </ng-container>

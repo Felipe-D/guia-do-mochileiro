@@ -1,11 +1,6 @@
 .col-10{
     margin:0 auto;
-    // border-left: 0.5px solid #dddddd;
-    // border-right: 0.5px solid #dddddd;
 }
-// .row{
-//     border: 1px solid #dddddd;
-// }
 .cat {
     width: 150px;
     height: 100px;
@@ -47,4 +42,13 @@
 
 .section{
     padding: 40px 0;
+}
+
+.modal-body {
+    span{
+    font-size: 14px;
+    }
+    .row{
+        margin-bottom: 10px;
+    }
 }
