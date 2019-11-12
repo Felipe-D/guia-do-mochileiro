@@ -9,11 +9,11 @@
       <div class="col-12">
         <!-- <input type="search" [(ngModel)]="searchModel" placeholder="Pesquisar" (keyup.enter)="browse()"> -->
         <form class="form-inline" ngNativeValidate>
-          <div class="col-4">
-            <span>Cidade: </span>
+          <div class="col-5">
+            <span>Cidade: </span><br>
             <input class="form-control" type="text" [(ngModel)]="cityModel" placeholder="Pesquisar" aria-label="Search" required="true" aria-required="true" [ngModelOptions]="{standalone: true}">
           </div>
-          <div class="col-4">
+          <div class="col-5"><br>
               <span>Estabelecimento: </span>
             <input class="form-control" type="search" [(ngModel)]="searchModel" placeholder="Pesquisar" (keyup.enter)="browse()" aria-label="Search" [ngModelOptions]="{standalone: true}">
           </div>
