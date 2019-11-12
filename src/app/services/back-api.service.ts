@@ -16,6 +16,7 @@ export class BackApiService {
   private tok = "?access_token=";
 
   private sessionId: string;
+  private sessionName: string;
   constructor( private http: HttpClient) { }
 
   setId(id:string){
@@ -23,6 +24,12 @@ export class BackApiService {
   }
   getId(){
     return this.sessionId;
+  }
+  setName(name:string){
+    this.sessionName = name;
+  }
+  getName(){
+    return this.sessionName;
   }
 
   login(body:object): Observable<any>{
@@ -42,6 +49,13 @@ export class BackApiService {
   }
   getHistories(): Observable<any>{
     return this.http.get<any>(this.apiUrl+'histories'+this.tok+this.sessionId).pipe(
+      catchError(this.handleError<object>('getHistorie'))
+    );
+  }
+  getFilteredHistories(): Observable<any>{
+    // let filter = '?filter='+JSON.stringify({"where":{"userName":this.sessionName}})
+    const filter = '?filter=%7B%22where%22%3A%7B%22userName%22%3A%22'+this.sessionName+'%22%7D%7D&access_token=';
+    return this.http.get<any>(this.apiUrl+'histories'+filter+this.sessionId).pipe(
       catchError(this.handleError<object>('getHistorie'))
     );
   }

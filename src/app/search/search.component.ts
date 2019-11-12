@@ -80,8 +80,8 @@ export class SearchComponent implements OnInit {
 
     // this.latitude = -23.5566262;
     // this.longitude = -46.6588142;
-    this.latitude = -23.555131129904332
-    this.longitude = -46.65814161300659
+    // this.latitude = -23.555131129904332
+    // this.longitude = -46.65814161300659
     this.api.getVenues(this.latitude, this.longitude)
       .subscribe(venues => {
         this.results = venues.response.venues;
@@ -133,7 +133,8 @@ export class SearchComponent implements OnInit {
         this.openModal(modal);
         let body = { "placement": detail.response.venue.name,
         "accessDate": new Date(),
-        "placeId": detail.response.venue.id
+        "placeId": detail.response.venue.id,
+        "userName": this.back.getName()
         }
         console.log(body)
         this.back.postHistories(body).subscribe(res => {

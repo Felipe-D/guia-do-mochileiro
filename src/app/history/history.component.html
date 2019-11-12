@@ -1,0 +1,20 @@
+<ng-container class="container">
+  <div class="cards" style="margin-top:5px;">
+      <div class="row space">
+        <div class="col-10">
+          <h5>Histórico de pesquisa</h5>
+        </div>
+      </div>
+      
+    <div class="row space" *ngIf="list">
+        <div class="col-10">
+          <ul class="list-group" style="height: 400px; overflow-y: auto;">
+            <li class="list-group-item" *ngFor="let item of list">
+              {{item.placement}}
+              <span style="float: right;">{{item.accessDate | date }}</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+  </div>
+</ng-container>

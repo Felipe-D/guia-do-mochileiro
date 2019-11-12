@@ -31,10 +31,16 @@ export class NavComponent implements OnInit {
     this.modalRef = this.modalService.show(template, { backdrop: true, keyboard: true });
   }
 
+  goTo(){
+    this.rote.navigateByUrl('history/');
+    this.pfCol = true;
+  }
+
   logout(){
     this.back.logout().subscribe(result =>{
       if(!result){
         this.back.setId(null);
+        this.back.setName(null);
         this.pfCol = true;
         this.rote.navigateByUrl('');
       }
@@ -48,6 +54,7 @@ export class NavComponent implements OnInit {
         .subscribe(result => {
           if(result.id) {
             this.back.setId(result.id);
+            this.back.setName(this.user);
             alert(this.feedback(200));
             this.rote.navigateByUrl('search/');
             console.log(this.back.getId())
