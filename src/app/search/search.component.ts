@@ -46,7 +46,7 @@ export class SearchComponent implements OnInit {
 
   ngOnInit() {
     
-    console.log(this.route.snapshot.params.item)
+    // console.log(this.route.snapshot.params.item)
 
 
     this.map = L.map('map');
@@ -99,7 +99,7 @@ export class SearchComponent implements OnInit {
   }
   // -23.6936355,-46.641580999999995
   drawMap() {
-    console.log(this.latitude, this.longitude)
+    // console.log(this.latitude, this.longitude)
     this.map.setView([this.latitude, this.longitude], 13);
     this.createMarker();
   }
@@ -127,7 +127,7 @@ export class SearchComponent implements OnInit {
   getDetails(id:string, modal:TemplateRef<any>){
     this.api.getVenueDetails(id)
       .subscribe(detail => {
-        console.log(detail.response.venue);
+        // console.log(detail.response.venue);
         this.details = detail.response.venue;
         
         this.openModal(modal);
@@ -136,20 +136,20 @@ export class SearchComponent implements OnInit {
         "placeId": detail.response.venue.id,
         "userName": this.back.getName()
         }
-        console.log(body)
+        // console.log(body)
         this.back.postHistories(body).subscribe(res => {
-          console.log(res);
+          // console.log(res);
         });
               // this.results.push(detail.response.venue);
               // console.log(this.results);
       })
   }
   browse(){
-    console.log(this.searchModel)
+    // console.log(this.searchModel)
     this.api.browseVenues(this.cityModel,this.searchModel)
       .subscribe(venues => {
         this.results = venues.response.venues;
-        console.log(this.results)
+        // console.log(this.results)
         this.cleanMarkers();
 
         venues.response.venues.map(venue => {
@@ -159,11 +159,11 @@ export class SearchComponent implements OnInit {
       })
   }
   browseByCategory(){
-    console.log(this.searchModel)
+    // console.log(this.searchModel)
     this.api.getVenuesbyCategory(this.searchModel)
       .subscribe(venues => {
         this.results = venues.response.venues;
-        console.log(this.results)
+        // console.log(this.results)
         this.cleanMarkers();
         venues.response.venues.map(venue => {
           this.createVenuesMarker(venue.location.lat, venue.location.lng, venue.name);

@@ -35,7 +35,7 @@ export class HomeComponent implements OnInit {
   constructor(private api: ApiService) { }
 
   ngOnInit() {
-    console.log(this.categories)
+    // console.log(this.categories)
     this.map = L.map('map');
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       attribution: '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
@@ -88,7 +88,7 @@ export class HomeComponent implements OnInit {
   // -23.6936355,-46.641580999999995
 
   drawMap() {
-    console.log(this.latitude, this.longitude)
+    // console.log(this.latitude, this.longitude)
     this.map.setView([this.latitude, this.longitude], 13);
     this.createMarker();
   }

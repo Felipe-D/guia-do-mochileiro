@@ -18,7 +18,7 @@ export class HistoryComponent implements OnInit {
   getHistory(){
     this.back.getFilteredHistories().subscribe(
       res => { 
-        console.log(res)
+        // console.log(res)
         this.list = res;
       }
     )

@@ -1,10 +1,11 @@
 <ng-container class="container">
   <div class="cards">
     <div class="row panel">
-      <!-- <div class="col-10"> -->
-      <img src="../../assets/imgs/sunrise-in-the-mountains-2-1309401.jpg" width="100%" class="rounded-lg">
-      <button type="button" class="btn btn-outline-info greet">Prepare-se para descobrir um novo mundo</button>
-      <!-- </div> -->
+      <div class="col-12 rounded-lg center" style="height: 500px; background-size: 100% 700px;
+      background-repeat: no-repeat;background-image: url(../../assets/imgs/sunrise-in-the-mountains-2-1309401.jpg);">
+        <!-- <img src="../../assets/imgs/sunrise-in-the-mountains-2-1309401.jpg" width="100%" class="rounded-lg"> -->
+        <button type="button" class="btn btn-outline-info greet">Prepare-se para descobrir um novo mundo</button>
+      </div>
     </div>
     <div class="row">
       <div class="col-10 space">
@@ -42,13 +43,20 @@
       <div class="row">
         <div class="col-10 space">
           <div class="col-10 d-flex flex-wrap align-content-center">
-            <div class="card bg-info text-white cat" *ngFor="let item of categories.response.categories">
-              <!-- <a routerLink="/search/{{item.id}}/{{item.name}}" style="text-decoration: none; color: #ffffff;"> -->
+            <!-- <div class="card bg-info text-white cat" *ngFor="let item of categories.response.categories">
+              <a routerLink="/search/{{item.id}}/{{item.name}}" style="text-decoration: none; color: #ffffff;">
               <div class="card-body">
                 {{item.name}}
               </div>
-              <!-- </a> -->
-            </div>
+              </a>
+            </div>  -->
+
+                <ul class="list-group" style="height: 200px; overflow-y: auto; width: 100%;">
+                  <li class="list-group-item" *ngFor="let item of categories.response.categories">
+                      {{item.name}}
+                  </li>
+                </ul>
+
           </div>
         </div>
       </div>
@@ -71,7 +79,7 @@
         <div id="map" class="rounded-lg" style="width:100%;height:400px; margin:0 auto;"></div>
       </div>
     </div>
-    <div class="row space"  *ngIf="showM">
+    <div class="row space" *ngIf="showM">
       <div class="col-10">
         <h5>Foram encontrados {{results.length}} resultados.</h5>
       </div>

@@ -31,8 +31,8 @@ export class NavComponent implements OnInit {
     this.modalRef = this.modalService.show(template, { backdrop: true, keyboard: true });
   }
 
-  goTo(){
-    this.rote.navigateByUrl('history/');
+  goTo(endpoint:string){
+    this.rote.navigateByUrl(endpoint);
     this.pfCol = true;
   }
 
@@ -57,7 +57,7 @@ export class NavComponent implements OnInit {
             this.back.setName(this.user);
             alert(this.feedback(200));
             this.rote.navigateByUrl('search/');
-            console.log(this.back.getId())
+            // console.log(this.back.getId())
           }else {
             alert(this.feedback(result.statusCode))
           }
@@ -76,7 +76,7 @@ export class NavComponent implements OnInit {
       this.loader = true;
       this.back.postUser(body)
         .subscribe(result => {
-          console.log(result);
+          // console.log(result);
           if(result.id) {
             alert(this.feedback(200));
           }else {
