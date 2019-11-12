@@ -8,7 +8,7 @@ import { BackApiService } from '../services/back-api.service';
 })
 export class HistoryComponent implements OnInit {
 
-  private list:Array<object>;
+  public list:Array<object>;
   
   constructor(private back: BackApiService) { }
 

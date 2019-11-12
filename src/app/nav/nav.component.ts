@@ -22,7 +22,7 @@ export class NavComponent implements OnInit {
   private loader:boolean = false;
   constructor(
     private modalService: BsModalService, 
-    private back: BackApiService, 
+    public back: BackApiService, 
     private rote: Router) { }
 
   ngOnInit() {
